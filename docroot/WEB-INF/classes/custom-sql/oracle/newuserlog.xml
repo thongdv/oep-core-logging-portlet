@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+	<sql id="oracle.org.oep.core.logging.dao.service.persistence.NewUserLogFinderImpl.getUserActivity">
+		<![CDATA[
+			SELECT * 
+			FROM oep_logging_newuserlog
+			WHERE companyId=?
+			AND groupId=?
+				 [$CREATEDATE_BEGIN$]
+				 [$CREATEDATE_END$]
+				 [$IS_USERNAME$]
+				 [$IS_EMAIL$]
+			 ORDER BY createDate DESC
+		]]>
+	</sql>
+	<sql id="oracle.org.oep.core.logging.dao.service.persistence.NewUserLogFinderImpl.countUserActivity">
+		<![CDATA[
+			SELECT COUNT(id) AS TOTAL
+			FROM oep_logging_newuserlog
+			WHERE companyId=?
+			AND groupId=?
+			[$CREATEDATE_BEGIN$]
+			[$CREATEDATE_END$]
+	 		[$IS_USERNAME$]
+		 	[$IS_EMAIL$]
+		]]>
+	</sql>
+	
+	<sql id="oracle.org.oep.core.logging.dao.service.persistence.NewUserLogFinderImpl.CREATEDATE_BEGIN">
+		<![CDATA[
+		 	 (to_number(to_char(createDate,'yyyyMMdd')) <= (to_number(to_char(?,'yyyyMMdd'))) )
+		]]>
+	</sql>
+	
+	<sql id="oracle.org.oep.core.logging.dao.service.persistence.NewUserLogFinderImpl.CREATEDATE_END">
+		<![CDATA[
+			(to_number(to_char(createDate,'yyyyMMdd')) <= (to_number(to_char(?,'yyyyMMdd'))) )
+		]]>
+	</sql>
+</custom-sql>

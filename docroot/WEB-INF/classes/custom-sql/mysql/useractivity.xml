@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+	<sql id="mysql.org.oep.core.logging.service.persistence.UserActivityFinderImpl.getUserActivity">
+		<![CDATA[
+			SELECT * 
+			FROM oep_logging_useractivity
+			WHERE companyId=?
+			AND groupId=?
+				 [$CREATEDATE_BEGIN$]
+				 [$CREATEDATE_END$]
+				 [$ACTION$]
+			 ORDER BY createDate DESC
+		]]>
+	</sql>
+	<sql id="mysql.org.oep.core.logging.service.persistence.UserActivityFinderImpl.countUserActivity">
+		<![CDATA[
+			SELECT COUNT(id) AS TOTAL
+			FROM oep_logging_useractivity
+			WHERE companyId=?
+			AND groupId=?
+			[$CREATEDATE_BEGIN$]
+			[$CREATEDATE_END$]
+			[$ACTION$]
+		]]>
+	</sql>
+	
+	<sql id="mysql.org.oep.core.logging.service.persistence.UserActivityFinderImpl.getDistinctAction">
+		<![CDATA[
+			SELECT DISTINCT action
+			FROM oep_logging_useractivity
+			WHERE companyId=?
+			AND groupId=?
+			ORDER BY action ASC
+		]]>
+	</sql>
+	
+	<sql id="mysql.org.oep.core.logging.service.persistence.UserActivityFinderImpl.CREATEDATE_BEGIN">
+		<![CDATA[
+		 	  STR_TO_DATE(createDate,'%Y-%m-%d') >= STR_TO_DATE(?,'%Y-%m-%d')
+		]]>
+	</sql>
+	
+	<sql id="mysql.org.oep.core.logging.service.persistence.UserActivityFinderImpl.CREATEDATE_END">
+		<![CDATA[
+			 STR_TO_DATE(createDate,'%Y-%m-%d') <= STR_TO_DATE(?,'%Y-%m-%d')
+		]]>
+	</sql>
+</custom-sql>

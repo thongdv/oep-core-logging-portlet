@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<custom-sql>
+	<!-- Oracle database -->
+	<sql  file="custom-sql/oracle/useractivity.xml"/>
+	<sql  file="custom-sql/oracle/newuserlog.xml"/>
+	
+	
+	<!-- Mysql database -->
+	<sql  file="custom-sql/mysql/useractivity.xml"/>
+	<sql  file="custom-sql/mysql/newuserlog.xml"/>
+</custom-sql>
